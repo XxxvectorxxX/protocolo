@@ -1,26 +1,58 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Inter } from "next/font/google"
+import { GeistSans } from "geist/font/sans"
+import { GeistMono } from "geist/font/mono"
 import "./globals.css"
-import { Toaster } from "../components/ui/toaster"
-
-const inter = Inter({ subsets: ["latin"] })
+import { Header } from "@/components/layout/header"
+import { ThemeProvider } from "@/components/theme-provider"
+import { AuthProvider } from "@/contexts/auth-context"
+// Importando NotificationsProvider e componentes de notificação
+import { NotificationsProvider } from "@/contexts/notifications-context"
+import { AlertBanner } from "@/components/notifications/alert-banner"
+import { ToastNotifications } from "@/components/notifications/toast-notifications"
+import { Toaster } from "@/components/ui/toaster"
 
 export const metadata: Metadata = {
-  title: "Dashboard Z-PRO - Sistema de Atendimentos",
-  description: "Sistema completo de protocolos de atendimento via WhatsApp integrado com Z-PRO API",
+  title: "Royal Sistemas - Atendimento",
+  description: "Sistema de Gestão de Chamados e Protocolos",
+  generator: "v0.dev",
 }
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode
-}) {
+}>) {
   return (
     <html lang="pt-BR">
-      <body className={inter.className}>
-        {children}
-        <Toaster />
+      <head>
+        <style>{`
+html {
+  font-family: ${GeistSans.style.fontFamily};
+  --font-sans: ${GeistSans.variable};
+  --font-mono: ${GeistMono.variable};
+}
+        `}</style>
+      </head>
+      <body>
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
+          <AuthProvider>
+            {/* Envolvendo com NotificationsProvider */}
+            <NotificationsProvider>
+              <Header />
+              <main>
+                {/* Adicionando banner de alertas */}
+                <div className="container mx-auto px-4 pt-4">
+                  <AlertBanner />
+                </div>
+                {children}
+              </main>
+              {/* Adicionando componentes de notificação */}
+              <ToastNotifications />
+              <Toaster />
+            </NotificationsProvider>
+          </AuthProvider>
+        </ThemeProvider>
       </body>
     </html>
   )
