@@ -2,8 +2,8 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
+import { Button } from "../../components/ui/button"
+import { Badge } from "../../components/ui/badge"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,11 +11,11 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "../../components/ui/dropdown-menu"
 import { User, Settings, LogOut, Menu } from "lucide-react"
-import { useAuth } from "@/contexts/auth-context"
+import { useAuth } from "../../contexts/auth-context"
 // Importando NotificationCenter
-import { NotificationCenter } from "@/components/notifications/notification-center"
+import { NotificationCenter } from "../../components/notifications/notification-center"
 
 export function Header() {
   const [alertCount] = useState(5)

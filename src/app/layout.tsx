@@ -3,14 +3,14 @@ import type { Metadata } from "next"
 import { GeistSans } from "geist/font/sans"
 import { GeistMono } from "geist/font/mono"
 import "./globals.css"
-import { Header } from "@/components/layout/header"
-import { ThemeProvider } from "@/components/theme-provider"
-import { AuthProvider } from "@/contexts/auth-context"
+import { Header } from "../components/layout/header"
+import { ThemeProvider } from "../components/theme-provider"
+import { AuthProvider } from "../contexts/auth-context"
 // Importando NotificationsProvider e componentes de notificação
-import { NotificationsProvider } from "@/contexts/notifications-context"
-import { AlertBanner } from "@/components/notifications/alert-banner"
-import { ToastNotifications } from "@/components/notifications/toast-notifications"
-import { Toaster } from "@/components/ui/toaster"
+import { NotificationsProvider } from "../contexts/notifications-context"
+import { AlertBanner } from "../components/notifications/alert-banner"
+import { ToastNotifications } from "../components/notifications/toast-notifications"
+import { Toaster } from "../components/ui/toaster"
 
 export const metadata: Metadata = {
   title: "Royal Sistemas - Atendimento",

@@ -1,9 +1,9 @@
 "use client"
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import type { AlertaAtendimento } from "@/types"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../components/ui/card"
+import { Badge } from "../../components/ui/badge"
+import { Button } from "../../components/ui/button"
+import type { AlertaAtendimento } from "../../types"
 import { AlertTriangle, Clock, UserX, Phone, MessageSquare } from "lucide-react"
 import Link from "next/link"
 

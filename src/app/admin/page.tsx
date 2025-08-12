@@ -1,13 +1,13 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { ProtectedRoute } from "@/components/auth/protected-route"
-import { useAuth } from "@/contexts/auth-context"
-import type { DashboardStats, Chamado, Atendente, AlertaAtendimento } from "@/types"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../components/ui/card"
+import { Badge } from "../../components/ui/badge"
+import { Button } from "../../components/ui/button"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../components/ui/tabs"
+import { ProtectedRoute } from "../../components/auth/protected-route"
+import { useAuth } from "../../contexts/auth-context"
+import type { DashboardStats, Chamado, Atendente, AlertaAtendimento } from "../../types"
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from "recharts"
 import {
   Users,

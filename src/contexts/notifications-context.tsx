@@ -2,9 +2,9 @@
 
 import type React from "react"
 import { createContext, useContext, useEffect, useState, useCallback } from "react"
-import { useAuth } from "@/contexts/auth-context"
-import type { AlertaAtendimento } from "@/types"
-import { toast } from "@/hooks/use-toast"
+import { useAuth } from "../contexts/auth-context"
+import type { AlertaAtendimento } from "../types"
+import { toast } from "../hooks/use-toast"
 
 interface Notification {
   id: string

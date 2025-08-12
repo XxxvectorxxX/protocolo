@@ -1,10 +1,10 @@
 "use client"
 
 import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { ScrollArea } from "@/components/ui/scroll-area"
-import { Separator } from "@/components/ui/separator"
+import { Button } from "../../components/ui/button"
+import { Badge } from "../../components/ui/badge"
+import { ScrollArea } from "../../components/ui/scroll-area"
+import { Separator } from "../../components/ui/separator"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,8 +12,8 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { useNotifications } from "@/contexts/notifications-context"
+} from "../../components/ui/dropdown-menu"
+import { useNotifications } from "../../contexts/notifications-context"
 import {
   Bell,
   BellOff,

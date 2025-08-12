@@ -1,8 +1,8 @@
 "use client"
 
 import { useEffect } from "react"
-import { useNotifications } from "@/contexts/notifications-context"
-import { toast } from "@/hooks/use-toast"
+import { useNotifications } from "../../contexts/notifications-context"
+import { toast } from "../../hooks/use-toast"
 
 export function ToastNotifications() {
   const { notifications } = useNotifications()

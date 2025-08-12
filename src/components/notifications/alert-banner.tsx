@@ -1,10 +1,10 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { useNotifications } from "@/contexts/notifications-context"
+import { Alert, AlertDescription, AlertTitle } from "../../components/ui/alert"
+import { Button } from "../../components/ui/button"
+import { Badge } from "../../components/ui/badge"
+import { useNotifications } from "../../contexts/notifications-context"
 import { AlertTriangle, X, ExternalLink, Volume2, VolumeX } from "lucide-react"
 import Link from "next/link"
 

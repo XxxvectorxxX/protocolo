@@ -2,14 +2,14 @@
 
 import { useState, useEffect } from "react"
 import { useParams, useRouter } from "next/navigation"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Textarea } from "@/components/ui/textarea"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { ProtectedRoute } from "@/components/auth/protected-route"
-import { useAuth } from "@/contexts/auth-context"
-import type { Chamado, Conversa } from "@/types"
+import { Button } from "../../../components/ui/button"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../../components/ui/card"
+import { Badge } from "../../../components/ui/badge"
+import { Textarea } from "../../../components/ui/textarea"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../../components/ui/select"
+import { ProtectedRoute } from "../../../components/auth/protected-route"
+import { useAuth } from "../../../contexts/auth-context"
+import type { Chamado, Conversa } from "../../../types"
 import {
   ArrowLeft,
   Send,
@@ -23,7 +23,7 @@ import {
   CheckCircle,
 } from "lucide-react"
 import Link from "next/link"
-import { api } from "@/lib/api"
+import { api } from "../../../lib/api"
 
 export default function ChamadoDetalhePage() {
   const params = useParams()
