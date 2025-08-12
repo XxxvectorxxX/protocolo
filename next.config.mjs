@@ -6,15 +6,25 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  async headers() {
+    return [
+      {
+        source: '/api/:path*',
+        headers: [
+          { key: 'Access-Control-Allow-Origin', value: process.env.NODE_ENV === 'production' ? 'https://seu-dominio.vercel.app' : '*' },
+          { key: 'Access-Control-Allow-Methods', value: 'GET,POST,PUT,DELETE,OPTIONS' },
+          { key: 'Access-Control-Allow-Headers', value: 'Content-Type,Authorization' },
+        ],
+      },
+    ]
+  },
   images: {
+    domains: ['blob.v0.dev', 'placeholder.svg'],
     unoptimized: true,
   },
   experimental: {
-    serverComponentsExternalPackages: []
+    //serverExternalPackages: ['@vercel/analytics'], // corrige aqui
   },
-  webpack: (config) => {
-    return config
-  }
 }
 
 export default nextConfig
