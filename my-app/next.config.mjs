@@ -23,7 +23,7 @@ const nextConfig = {
     unoptimized: true,
   },
   experimental: {
-    serverExternalPackages: ['@vercel/analytics'], // corrige aqui
+    //serverExternalPackages: ['@vercel/analytics'], // corrige aqui
   },
 }
 
