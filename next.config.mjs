@@ -9,6 +9,12 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  experimental: {
+    serverComponentsExternalPackages: []
+  },
+  webpack: (config) => {
+    return config
+  }
 }
 
 export default nextConfig
