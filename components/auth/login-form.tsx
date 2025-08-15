@@ -26,28 +26,21 @@ export function LoginForm() {
     setIsLoading(true)
 
     try {
-      // Simulated authentication - replace with real API call
-      if (email === "admin@empresa.com" && password === "admin123") {
-        await login({
-          id: "1",
-          email: "admin@empresa.com",
-          name: "Admin User",
-          role: "admin",
-          status: "online",
-        })
-        router.push("/")
-      } else if (email === "user@empresa.com" && password === "user123") {
-        await login({
-          id: "2",
-          email: "user@empresa.com",
-          name: "User Common",
-          role: "user",
-          status: "online",
-        })
-        router.push("/")
-      } else {
-        setError("Credenciais inválidas")
+      const res = await fetch("/api/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      })
+
+      if (!res.ok) {
+        const data = await res.json()
+        setError(data.error || "Credenciais inválidas")
+        return
       }
+
+      const user = await res.json()
+      await login(user)
+      router.push("/")
     } catch (err) {
       setError("Erro ao fazer login. Tente novamente.")
     } finally {
@@ -102,12 +95,6 @@ export function LoginForm() {
         {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
         Entrar
       </Button>
-
-      <div className="text-sm text-muted-foreground space-y-1">
-        <p>Credenciais de teste:</p>
-        <p>Admin: admin@empresa.com / admin123</p>
-        <p>Usuário: user@empresa.com / user123</p>
-      </div>
     </form>
   )
 }
