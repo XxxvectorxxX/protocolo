@@ -2,31 +2,17 @@ import { NextRequest, NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
 
 export async function POST(req: NextRequest) {
-  // Importa Prisma **dinamicamente** para evitar erro na build
+  // Importa Prisma só durante execução da função
   const { prisma } = await import('@/lib/server/prisma');
 
-  try {
-    const { email, password } = await req.json();
-    console.log('Tentando login para:', email);
+  const { email, password } = await req.json();
 
-    const user = await prisma.users.findUnique({ where: { email } });
-    console.log('Usuário encontrado:', user);
+  const user = await prisma.users.findUnique({ where: { email } });
+  if (!user) return NextResponse.json({ error: 'Credenciais inválidas' }, { status: 401 });
 
-    if (!user) {
-      return NextResponse.json({ error: 'Credenciais inválidas' }, { status: 401 });
-    }
+  const passwordMatch = await bcrypt.compare(password, user.passwordHash);
+  if (!passwordMatch) return NextResponse.json({ error: 'Credenciais inválidas' }, { status: 401 });
 
-    const passwordMatch = await bcrypt.compare(password, user.passwordHash);
-    console.log('Senha confere?', passwordMatch);
-
-    if (!passwordMatch) {
-      return NextResponse.json({ error: 'Credenciais inválidas' }, { status: 401 });
-    }
-
-    const { passwordHash, ...userData } = user;
-    return NextResponse.json(userData);
-  } catch (err) {
-    console.error('Erro no login:', err);
-    return NextResponse.json({ error: 'Erro interno no servidor' }, { status: 500 });
-  }
+  const { passwordHash, ...userData } = user;
+  return NextResponse.json(userData);
 }

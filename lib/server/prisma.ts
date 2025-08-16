@@ -4,7 +4,6 @@ declare global {
   var prisma: PrismaClient | undefined;
 }
 
-// Instância única do Prisma para evitar múltiplas conexões
 export const prisma =
   global.prisma || new PrismaClient();
 
