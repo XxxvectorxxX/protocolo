@@ -1,0 +1,54 @@
+[0816/225734.836:INFO:CONSOLE(0)] "Error with Permissions-Policy header: Feature xr-spatial-tracking's parameters are ignored.", source:  (0)
+[0816/225734.837:INFO:CONSOLE(0)] "Error with Permissions-Policy header: Origin trial controlled feature not enabled: 'attribution-reporting'.", source:  (0)
+[0816/225734.837:INFO:CONSOLE(0)] "Error with Permissions-Policy header: Unrecognized feature: 'compute-pressure'.", source:  (0)
+[0816/225734.837:INFO:CONSOLE(0)] "Error with Permissions-Policy header: Origin trial controlled feature not enabled: 'interest-cohort'.", source:  (0)
+[0816/225734.837:INFO:CONSOLE(0)] "Error with Permissions-Policy header: Unrecognized feature: 'private-state-token-issuance'.", source:  (0)
+[0816/225734.838:INFO:CONSOLE(0)] "Error with Permissions-Policy header: Origin trial controlled feature not enabled: 'shared-storage'.", source:  (0)
+[0816/225734.838:INFO:CONSOLE(0)] "Error with Permissions-Policy header: Unrecognized feature: 'shared-storage-select-url'.", source:  (0)
+[0816/225734.838:INFO:CONSOLE(0)] "Error with Permissions-Policy header: Unrecognized feature: 'private-state-token-redemption'.", source:  (0)
+[0816/225734.839:INFO:CONSOLE(0)] "Error with Permissions-Policy header: Unrecognized feature: 'unload'.", source:  (0)
+[0816/225734.839:INFO:CONSOLE(0)] "Error with Permissions-Policy header: Unrecognized feature: 'window-management'.", source:  (0)
+[0816/225734.840:INFO:CONSOLE(0)] "Document-Policy HTTP header: Unrecognized document policy feature name include-js-call-stacks-in-crash-reports.", source: https://web.whatsapp.com/ (0)
+[0816/225738.451:INFO:CONSOLE(114)] "Event handler of 'x-storagemutated-1' event must be added on the initial evaluation of worker script.", source: https://static.whatsapp.net/rsrc.php/v4/y6/r/UmerbEEMLhN.js (114)
+[0816/230022.793:INFO:CONSOLE(4)] "Uncaught (in promise) Error: window is not defined", source: https://web.whatsapp.com/ (4)
+[0816/230024.210:INFO:CONSOLE(114)] "Event handler of 'x-storagemutated-1' event must be added on the initial evaluation of worker script.", source: https://static.whatsapp.net/rsrc.php/v4/y6/r/UmerbEEMLhN.js (114)
+[0816/230113.461:INFO:CONSOLE(114)] "Event handler of 'x-storagemutated-1' event must be added on the initial evaluation of worker script.", source: https://static.whatsapp.net/rsrc.php/v4/y6/r/UmerbEEMLhN.js (114)
+[0816/230238.639:INFO:CONSOLE(114)] "Event handler of 'x-storagemutated-1' event must be added on the initial evaluation of worker script.", source: https://static.whatsapp.net/rsrc.php/v4/y6/r/UmerbEEMLhN.js (114)
+[0816/230354.574:INFO:CONSOLE(4)] "Uncaught (in promise) Error: window is not defined", source: https://web.whatsapp.com/ (4)
+[0816/230445.285:INFO:CONSOLE(114)] "Event handler of 'x-storagemutated-1' event must be added on the initial evaluation of worker script.", source: https://static.whatsapp.net/rsrc.php/v4/y6/r/UmerbEEMLhN.js (114)
+[0816/230726.340:INFO:CONSOLE(4)] "Uncaught (in promise) Error: window is not defined", source: https://web.whatsapp.com/ (4)
+[0816/230816.683:INFO:CONSOLE(114)] "Event handler of 'x-storagemutated-1' event must be added on the initial evaluation of worker script.", source: https://static.whatsapp.net/rsrc.php/v4/y6/r/UmerbEEMLhN.js (114)
+[0816/231057.391:INFO:CONSOLE(4)] "Uncaught (in promise) Error: window is not defined", source: https://web.whatsapp.com/ (4)
+[0816/231147.952:INFO:CONSOLE(114)] "Event handler of 'x-storagemutated-1' event must be added on the initial evaluation of worker script.", source: https://static.whatsapp.net/rsrc.php/v4/y6/r/UmerbEEMLhN.js (114)
+[0816/231428.776:INFO:CONSOLE(4)] "Uncaught (in promise) Error: window is not defined", source: https://web.whatsapp.com/ (4)
+[0816/231519.313:INFO:CONSOLE(114)] "Event handler of 'x-storagemutated-1' event must be added on the initial evaluation of worker script.", source: https://static.whatsapp.net/rsrc.php/v4/y6/r/UmerbEEMLhN.js (114)
+[0816/231800.107:INFO:CONSOLE(4)] "Uncaught (in promise) Error: window is not defined", source: https://web.whatsapp.com/ (4)
+[0816/231850.841:INFO:CONSOLE(114)] "Event handler of 'x-storagemutated-1' event must be added on the initial evaluation of worker script.", source: https://static.whatsapp.net/rsrc.php/v4/y6/r/UmerbEEMLhN.js (114)
+[0816/232131.564:INFO:CONSOLE(4)] "Uncaught (in promise) Error: window is not defined", source: https://web.whatsapp.com/ (4)
+[0816/232222.147:INFO:CONSOLE(114)] "Event handler of 'x-storagemutated-1' event must be added on the initial evaluation of worker script.", source: https://static.whatsapp.net/rsrc.php/v4/y6/r/UmerbEEMLhN.js (114)
+[0816/232423.477:ERROR:cache_util_win.cc(20)] Unable to move the cache: Acesso negado. (0x5)
+[0816/232423.477:ERROR:cache_util_win.cc(20)] Unable to move the cache: Acesso negado. (0x5)
+[0816/232423.477:ERROR:disk_cache.cc(205)] Unable to create cache
+[0816/232423.477:ERROR:gpu_disk_cache.cc(673)] Gpu Cache Creation failed: -2
+[0816/232423.477:ERROR:disk_cache.cc(205)] Unable to create cache
+[0816/232423.477:ERROR:gpu_disk_cache.cc(673)] Gpu Cache Creation failed: -2
+[0816/232425.509:ERROR:cache_util_win.cc(20)] Unable to move the cache: Acesso negado. (0x5)
+[0816/232425.509:ERROR:disk_cache.cc(205)] Unable to create cache
+[0816/232426.009:INFO:CONSOLE(0)] "Error with Permissions-Policy header: Feature xr-spatial-tracking's parameters are ignored.", source:  (0)
+[0816/232426.011:INFO:CONSOLE(0)] "Error with Permissions-Policy header: Origin trial controlled feature not enabled: 'attribution-reporting'.", source:  (0)
+[0816/232426.011:INFO:CONSOLE(0)] "Error with Permissions-Policy header: Unrecognized feature: 'compute-pressure'.", source:  (0)
+[0816/232426.011:INFO:CONSOLE(0)] "Error with Permissions-Policy header: Origin trial controlled feature not enabled: 'interest-cohort'.", source:  (0)
+[0816/232426.011:INFO:CONSOLE(0)] "Error with Permissions-Policy header: Unrecognized feature: 'private-state-token-issuance'.", source:  (0)
+[0816/232426.011:INFO:CONSOLE(0)] "Error with Permissions-Policy header: Origin trial controlled feature not enabled: 'shared-storage'.", source:  (0)
+[0816/232426.011:INFO:CONSOLE(0)] "Error with Permissions-Policy header: Unrecognized feature: 'shared-storage-select-url'.", source:  (0)
+[0816/232426.011:INFO:CONSOLE(0)] "Error with Permissions-Policy header: Unrecognized feature: 'private-state-token-redemption'.", source:  (0)
+[0816/232426.011:INFO:CONSOLE(0)] "Error with Permissions-Policy header: Unrecognized feature: 'unload'.", source:  (0)
+[0816/232426.011:INFO:CONSOLE(0)] "Error with Permissions-Policy header: Unrecognized feature: 'window-management'.", source:  (0)
+[0816/232426.011:INFO:CONSOLE(0)] "Document-Policy HTTP header: Unrecognized document policy feature name include-js-call-stacks-in-crash-reports.", source: https://web.whatsapp.com/ (0)
+[0816/232426.485:ERROR:service_worker_storage.cc(1933)] Failed to delete the database: Database IO error
+[0816/232432.142:ERROR:quota_database.cc(929)] Could not open the quota database, resetting.
+[0816/232437.174:ERROR:quota_database.cc(929)] Could not open the quota database, resetting.
+[0816/232440.254:ERROR:quota_database.cc(931)] Failed to reset the quota database.
+[0816/232440.254:ERROR:quota_database.cc(931)] Failed to reset the quota database.
+[0816/232502.963:INFO:CONSOLE(4)] "Uncaught (in promise) Error: window is not defined", source: https://web.whatsapp.com/ (4)
+[0816/232553.777:INFO:CONSOLE(114)] "Event handler of 'x-storagemutated-1' event must be added on the initial evaluation of worker script.", source: https://static.whatsapp.net/rsrc.php/v4/y6/r/UmerbEEMLhN.js (114)

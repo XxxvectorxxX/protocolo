@@ -1,6 +1,7 @@
+// components/chat/chat-interface.tsx
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { ChatSidebar } from "./chat-sidebar"
 import { ChatWindow } from "./chat-window"
 import { ChatHeader } from "./chat-header"
@@ -28,100 +29,26 @@ export interface Message {
   status: "sent" | "delivered" | "read"
 }
 
-const mockConversations: Conversation[] = [
-  {
-    id: "1",
-    clientName: "Maria Silva",
-    clientPhone: "+55 11 99999-1234",
-    lastMessage: "Preciso de ajuda com meu pedido",
-    timestamp: "2 min",
-    status: "waiting",
-    unreadCount: 3,
-    avatar: "/placeholder-g0yux.png",
-  },
-  {
-    id: "2",
-    clientName: "João Santos",
-    clientPhone: "+55 11 99999-5678",
-    lastMessage: "Obrigado pela ajuda!",
-    timestamp: "5 min",
-    status: "active",
-    assignedTo: "Ana Costa",
-    unreadCount: 0,
-    avatar: "/abstract-user-carlos.png",
-  },
-  {
-    id: "3",
-    clientName: "Pedro Oliveira",
-    clientPhone: "+55 11 99999-9012",
-    lastMessage: "Quando vai chegar meu produto?",
-    timestamp: "10 min",
-    status: "waiting",
-    unreadCount: 1,
-    avatar: "/stylized-woman-profile.png",
-  },
-  {
-    id: "4",
-    clientName: "Ana Costa",
-    clientPhone: "+55 11 99999-3456",
-    lastMessage: "Perfeito, muito obrigada!",
-    timestamp: "1h",
-    status: "finished",
-    assignedTo: "Carlos Lima",
-    unreadCount: 0,
-    avatar: "/placeholder-cl5hp.png",
-  },
-]
 
-const mockMessages: Message[] = [
-  {
-    id: "1",
-    conversationId: "1",
-    content: "Olá! Preciso de ajuda com meu pedido #12345",
-    timestamp: "14:30",
-    sender: "client",
-    senderName: "Maria Silva",
-    type: "text",
-    status: "read",
-  },
-  {
-    id: "2",
-    conversationId: "1",
-    content: "Fiz a compra ontem mas não recebi confirmação",
-    timestamp: "14:31",
-    sender: "client",
-    senderName: "Maria Silva",
-    type: "text",
-    status: "read",
-  },
-  {
-    id: "3",
-    conversationId: "1",
-    content: "Preciso de ajuda com meu pedido",
-    timestamp: "14:32",
-    sender: "client",
-    senderName: "Maria Silva",
-    type: "text",
-    status: "delivered",
-  },
-]
 
 export function ChatInterface() {
   const [selectedConversation, setSelectedConversation] = useState<string | null>("1")
-  const [conversations, setConversations] = useState<Conversation[]>(mockConversations)
-  const [messages, setMessages] = useState<Message[]>(mockMessages)
+const [conversations, setConversations] = useState<Conversation[]>([]);
+const [messages, setMessages] = useState<Message[]>([]);
 
   const currentConversation = conversations.find((c) => c.id === selectedConversation)
   const currentMessages = messages.filter((m) => m.conversationId === selectedConversation)
 
   const updateConversationStatus = (conversationId: string, status: Conversation["status"]) => {
-    setConversations((prev) => prev.map((conv) => (conv.id === conversationId ? { ...conv, status } : conv)))
+    setConversations((prev) =>
+      prev.map((conv) => (conv.id === conversationId ? { ...conv, status } : conv))
+    )
   }
 
-  const sendMessage = (content: string) => {
+  const handleNewMessage = (content: string) => {
     if (!selectedConversation) return
 
-    const newMessage: Message = {
+    const newMsg: Message = {
       id: Date.now().toString(),
       conversationId: selectedConversation,
       content,
@@ -132,16 +59,28 @@ export function ChatInterface() {
       status: "sent",
     }
 
-    setMessages((prev) => [...prev, newMessage])
+    setMessages((prev) => [...prev, newMsg])
 
-    // Update conversation last message
+    // Atualiza última mensagem da conversa
     setConversations((prev) =>
       prev.map((conv) =>
         conv.id === selectedConversation
           ? { ...conv, lastMessage: content, timestamp: "agora", status: "active" }
-          : conv,
-      ),
+          : conv
+      )
     )
+
+    // Enviar para API do WhatsApp
+    fetch("/api/whatsapp/send", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        whatsappId: 1,
+        to: currentConversation?.clientPhone,
+        message: content,
+        conversationId: selectedConversation,
+      }),
+    })
   }
 
   return (
@@ -156,9 +95,15 @@ export function ChatInterface() {
           <>
             <ChatHeader
               conversation={currentConversation}
-              onStatusChange={(status) => updateConversationStatus(currentConversation.id, status)}
+              onStatusChange={(status) =>
+                updateConversationStatus(currentConversation.id, status)
+              }
             />
-            <ChatWindow conversation={currentConversation} messages={currentMessages} onSendMessage={sendMessage} />
+            <ChatWindow
+              conversation={currentConversation}
+              messages={currentMessages}
+              whatsappId={1} // Id do WhatsApp da sessão
+            />
           </>
         ) : (
           <div className="flex-1 flex items-center justify-center text-muted-foreground">

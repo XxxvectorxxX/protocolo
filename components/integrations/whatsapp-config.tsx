@@ -12,39 +12,75 @@ import { Separator } from "@/components/ui/separator"
 import { CheckCircle, AlertCircle, Send, MessageSquare, Settings, Zap } from "lucide-react"
 
 export function WhatsAppConfig() {
-  const [config, setConfig] = useState({
-    phoneNumber: "+55 11 99999-0000",
-    businessName: "Minha Empresa",
-    webhookUrl: "https://api.minhaempresa.com/webhook",
-    accessToken: "EAAG...hidden",
-    phoneNumberId: "123456789",
-    businessAccountId: "987654321",
-  })
+  const [phoneNumber, setPhoneNumber] = useState("")
+  const [businessName, setBusinessName] = useState("")
+  const [webhookUrl, setWebhookUrl] = useState("")
+  const [accessToken, setAccessToken] = useState("")
+  const [phoneNumberId, setPhoneNumberId] = useState("")
+  const [businessAccountId, setBusinessAccountId] = useState("")
 
-  const [testMessage, setTestMessage] = useState({
-    to: "+55 11 99999-1234",
-    message: "Olá! Esta é uma mensagem de teste do nosso sistema CRM.",
-  })
+  const [testTo, setTestTo] = useState("")
+  const [testMessage, setTestMessage] = useState("")
 
-  const [isConnected, setIsConnected] = useState(true)
+  const [isConnected, setIsConnected] = useState(false)
   const [isTesting, setIsTesting] = useState(false)
 
-  const handleSaveConfig = () => {
-    // Simulate saving configuration
-    console.log("Saving WhatsApp config:", config)
+  // Conectar WhatsApp via API
+  const handleConnectWhatsApp = async () => {
+    try {
+      const res = await fetch("/api/whatsapp/init", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ whatsappId: 1, sessionName: "suporte" }) // ajuste o whatsappId conforme necessário
+      })
+      const data = await res.json()
+      console.log(data)
+      setIsConnected(true)
+      alert("WhatsApp conectado com sucesso!")
+    } catch (err) {
+      console.error(err)
+      setIsConnected(false)
+      alert("Erro ao conectar WhatsApp")
+    }
   }
 
+  // Enviar mensagem de teste via API
   const handleTestMessage = async () => {
+    if (!isConnected) return
     setIsTesting(true)
-    // Simulate sending test message
-    await new Promise((resolve) => setTimeout(resolve, 2000))
-    setIsTesting(false)
-    alert("Mensagem de teste enviada com sucesso!")
+    try {
+      const res = await fetch("/api/whatsapp/send", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          whatsappId: 1, // ajuste conforme necessário
+          to: testTo,
+          message: testMessage
+        })
+      })
+      const data = await res.json()
+      console.log(data)
+      alert("Mensagem de teste enviada com sucesso!")
+    } catch (err) {
+      console.error(err)
+      alert("Erro ao enviar mensagem de teste")
+    } finally {
+      setIsTesting(false)
+    }
   }
 
-  const handleConnectWhatsApp = () => {
-    // Simulate WhatsApp connection
-    setIsConnected(!isConnected)
+  const handleSaveConfig = () => {
+    // Aqui você pode enviar os dados para salvar em banco ou API
+    const configData = {
+      phoneNumber,
+      businessName,
+      webhookUrl,
+      accessToken,
+      phoneNumberId,
+      businessAccountId
+    }
+    console.log("Salvando configuração:", configData)
+    alert("Configurações salvas com sucesso!")
   }
 
   return (
@@ -56,7 +92,9 @@ export function WhatsAppConfig() {
         </div>
         <div className="flex items-center space-x-2">
           <div className={`h-2 w-2 rounded-full ${isConnected ? "bg-green-500" : "bg-red-500"}`}></div>
-          <Badge variant={isConnected ? "default" : "destructive"}>{isConnected ? "Conectado" : "Desconectado"}</Badge>
+          <Badge variant={isConnected ? "default" : "destructive"}>
+            {isConnected ? "Conectado" : "Desconectado"}
+          </Badge>
         </div>
       </div>
 
@@ -70,7 +108,7 @@ export function WhatsAppConfig() {
       )}
 
       <div className="grid gap-6 lg:grid-cols-2">
-        {/* Configuration */}
+        {/* Configuração */}
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center space-x-2">
@@ -84,50 +122,44 @@ export function WhatsAppConfig() {
               <Label htmlFor="phoneNumber">Número do WhatsApp Business</Label>
               <Input
                 id="phoneNumber"
-                value={config.phoneNumber}
-                onChange={(e) => setConfig({ ...config, phoneNumber: e.target.value })}
+                value={phoneNumber}
+                onChange={(e) => setPhoneNumber(e.target.value)}
                 placeholder="+55 11 99999-0000"
               />
             </div>
-
             <div className="space-y-2">
               <Label htmlFor="businessName">Nome da Empresa</Label>
               <Input
                 id="businessName"
-                value={config.businessName}
-                onChange={(e) => setConfig({ ...config, businessName: e.target.value })}
+                value={businessName}
+                onChange={(e) => setBusinessName(e.target.value)}
                 placeholder="Nome da sua empresa"
               />
             </div>
-
             <div className="space-y-2">
               <Label htmlFor="accessToken">Access Token</Label>
               <Input
                 id="accessToken"
                 type="password"
-                value={config.accessToken}
-                onChange={(e) => setConfig({ ...config, accessToken: e.target.value })}
-                placeholder="Seu access token da Meta"
+                value={accessToken}
+                onChange={(e) => setAccessToken(e.target.value)}
+                placeholder="Access token da Meta"
               />
             </div>
-
             <div className="space-y-2">
               <Label htmlFor="phoneNumberId">Phone Number ID</Label>
               <Input
                 id="phoneNumberId"
-                value={config.phoneNumberId}
-                onChange={(e) => setConfig({ ...config, phoneNumberId: e.target.value })}
-                placeholder="ID do número de telefone"
+                value={phoneNumberId}
+                onChange={(e) => setPhoneNumberId(e.target.value)}
               />
             </div>
-
             <div className="space-y-2">
               <Label htmlFor="webhookUrl">Webhook URL</Label>
               <Input
                 id="webhookUrl"
-                value={config.webhookUrl}
-                onChange={(e) => setConfig({ ...config, webhookUrl: e.target.value })}
-                placeholder="https://api.suaempresa.com/webhook"
+                value={webhookUrl}
+                onChange={(e) => setWebhookUrl(e.target.value)}
               />
             </div>
 
@@ -146,7 +178,7 @@ export function WhatsAppConfig() {
           </CardContent>
         </Card>
 
-        {/* Test Message */}
+        {/* Mensagem de Teste */}
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center space-x-2">
@@ -160,37 +192,25 @@ export function WhatsAppConfig() {
               <Label htmlFor="testTo">Número de Destino</Label>
               <Input
                 id="testTo"
-                value={testMessage.to}
-                onChange={(e) => setTestMessage({ ...testMessage, to: e.target.value })}
+                value={testTo}
+                onChange={(e) => setTestTo(e.target.value)}
                 placeholder="+55 11 99999-1234"
                 disabled={!isConnected}
               />
             </div>
-
             <div className="space-y-2">
               <Label htmlFor="testMessage">Mensagem</Label>
               <Textarea
                 id="testMessage"
-                value={testMessage.message}
-                onChange={(e) => setTestMessage({ ...testMessage, message: e.target.value })}
-                placeholder="Digite sua mensagem de teste"
+                value={testMessage}
+                onChange={(e) => setTestMessage(e.target.value)}
                 rows={4}
                 disabled={!isConnected}
               />
             </div>
 
             <Button onClick={handleTestMessage} disabled={!isConnected || isTesting} className="w-full">
-              {isTesting ? (
-                <>
-                  <div className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-background border-t-transparent" />
-                  Enviando...
-                </>
-              ) : (
-                <>
-                  <Send className="mr-2 h-4 w-4" />
-                  Enviar Teste
-                </>
-              )}
+              {isTesting ? "Enviando..." : "Enviar Teste"}
             </Button>
 
             {isConnected && (
@@ -202,34 +222,6 @@ export function WhatsAppConfig() {
           </CardContent>
         </Card>
       </div>
-
-      {/* Statistics */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Estatísticas WhatsApp</CardTitle>
-          <CardDescription>Métricas de uso da integração WhatsApp</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="grid gap-4 md:grid-cols-4">
-            <div className="text-center">
-              <div className="text-2xl font-bold text-green-600">1,234</div>
-              <div className="text-sm text-muted-foreground">Mensagens Enviadas</div>
-            </div>
-            <div className="text-center">
-              <div className="text-2xl font-bold text-blue-600">856</div>
-              <div className="text-sm text-muted-foreground">Mensagens Recebidas</div>
-            </div>
-            <div className="text-center">
-              <div className="text-2xl font-bold text-purple-600">98.5%</div>
-              <div className="text-sm text-muted-foreground">Taxa de Entrega</div>
-            </div>
-            <div className="text-center">
-              <div className="text-2xl font-bold text-orange-600">45</div>
-              <div className="text-sm text-muted-foreground">Conversas Ativas</div>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
     </div>
   )
 }

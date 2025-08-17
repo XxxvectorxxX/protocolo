@@ -1,7 +1,5 @@
 "use client"
 
-import type React from "react"
-
 import { useState, useRef, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -14,27 +12,78 @@ import type { Conversation, Message } from "./chat-interface"
 interface ChatWindowProps {
   conversation: Conversation
   messages: Message[]
-  onSendMessage: (content: string) => void
+  whatsappId: number // ID do WhatsApp da sua tabela
 }
 
-export function ChatWindow({ conversation, messages, onSendMessage }: ChatWindowProps) {
+export function ChatWindow({ conversation, messages, whatsappId }: ChatWindowProps) {
   const [newMessage, setNewMessage] = useState("")
+  const [chatMessages, setChatMessages] = useState<Message[]>(messages)
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
+  const connectWhatsapp = async () => {
+  const res = await fetch("/api/whatsapp/init", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ whatsappId: 1, sessionName: "suporte" })
+  })
+  const data = await res.json()
+  console.log(data.message)
+}
+
+  // Scroll automático
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
   }
 
   useEffect(() => {
     scrollToBottom()
-  }, [messages])
+  }, [chatMessages])
 
-  const handleSendMessage = (e: React.FormEvent) => {
-    e.preventDefault()
-    if (newMessage.trim()) {
-      onSendMessage(newMessage.trim())
-      setNewMessage("")
+  // Escuta mensagens recebidas do WhatsApp via EventSource
+  useEffect(() => {
+    const es = new EventSource(`/api/whatsapp/messages/stream?whatsappId=${whatsappId}`)
+
+    es.onmessage = (event) => {
+      const msg: Message = JSON.parse(event.data)
+      if (msg.conversationId === conversation.id) {
+        setChatMessages((prev) => [...prev, msg])
+      }
     }
+
+    return () => es.close()
+  }, [conversation.id, whatsappId])
+
+  const handleSendMessage = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!newMessage.trim()) return
+
+    const content = newMessage.trim()
+
+    // Adiciona a mensagem localmente
+    const newMsg: Message = {
+      id: Date.now().toString(),
+      conversationId: conversation.id,
+      content,
+      timestamp: new Date().toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" }),
+      sender: "agent",
+      senderName: "Você",
+      type: "text",
+      status: "sent",
+    }
+    setChatMessages((prev) => [...prev, newMsg])
+    setNewMessage("")
+
+    // Envia para API do WhatsApp
+    await fetch("/api/whatsapp/send", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        whatsappId,
+        to: conversation.clientPhone,
+        message: content,
+        conversationId: conversation.id,
+      }),
+    })
   }
 
   const getMessageStatusIcon = (status: Message["status"]) => {
@@ -54,7 +103,7 @@ export function ChatWindow({ conversation, messages, onSendMessage }: ChatWindow
     <div className="flex-1 flex flex-col">
       {/* Messages Area */}
       <div className="flex-1 overflow-y-auto p-4 space-y-4">
-        {messages.map((message) => (
+        {chatMessages.map((message) => (
           <div
             key={message.id}
             className={cn(

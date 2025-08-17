@@ -40,7 +40,7 @@ const menuItems = [
   {
     icon: Headphones,
     label: "Atendimentos",
-    href: "/atendimentos",
+    href: "/chat",
     description: "Lista de atendimentos",
     badge: { count: 23, type: "warning" as const },
   },
